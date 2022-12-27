@@ -3,7 +3,7 @@
 
 name: .NET
 
-on: #trigger event 
+on: #trigger event
   push:
     branches: ["master"]
   pull_request:
@@ -46,9 +46,9 @@ jobs:
       - name: Build 🔧 # Build the dotnet blazor app and put it in the Release folder, -nologo remove dotnet log
         run: dotnet publish Blazor.Web -c release -o release -nologo #-c = configuration -o = output
 
-      - name: Change base-tag in index.html from / to Blazor.Web ✍ 
+      - name: Change base-tag in index.html from / to Blazor.Web ✍
         run: sed -i 's/<base href="\/" \/>/<base href="\/blazor\/" \/>/g' release/wwwroot/index.html
-         
+
       - name: Add .nojekyll fil 🚫👨‍⚕️👾 # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)e
         run: touch release/wwwroot/.nojekyll
 
