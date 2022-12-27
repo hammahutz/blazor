@@ -9,23 +9,41 @@ on:
   pull_request:
     branches: ["master"]
 
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 jobs:
-  build:
+  build-and-deploy-github-pages:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout 🛎️ # Creates a new branch that github can run code on
         uses: actions/checkout@v3
 
-      - name: Setup .NET ✍️
+      - name: Setup .NET 7 SDK✍️ # Install dotnet
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 6.0.x
+          dotnet-version: 7.x.x # Sets the dotnet version
 
-      - name: Restore dependencies 🏥
+      - name: Restore dependencies 🏥 # Restores and installs all dependencies
         run: dotnet restore Blazor.Web
 
-      - name: Build 🔧
+      - name: Build 🔧 # Build the dotnet blazor app
         run: dotnet publish Blazor.Web -c release -nologo
 
       - name: Setup Pages 📃 # Setup a github page
@@ -34,8 +52,7 @@ jobs:
       - name: Upload artifact 🔺 # Upload the dist folder to the page
         uses: actions/upload-pages-artifact@v1
         with:
-          # Upload just the static site folder
-          path: "/home/runner/work/blazor/blazor/Blazor.Web/bin/release/net7.0/wwwroot"
+          path: "/home/runner/work/blazor/blazor/Blazor.Web/bin/release/net7.0/wwwroot" # Upload just the static site folder
 
       - name: Deploy to GitHub Pages 🌍
         id: deployment
