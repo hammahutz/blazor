@@ -3,7 +3,7 @@
 
 name: .NET
 
-on:
+on: #trigger event 
   push:
     branches: ["master"]
   pull_request:
@@ -43,14 +43,14 @@ jobs:
       - name: Restore dependencies 🏥 # Restores and installs all dependencies
         run: dotnet restore Blazor.Web
 
-      - name: Build 🔧 # Build the dotnet blazor app
-        run: dotnet publish Blazor.Web -c release -nologo
+      - name: Build 🔧 # Build the dotnet blazor app and put it in the Release folder, -nologo remove dotnet log
+        run: dotnet publish Blazor.Web -c Release -o release -nologo #-c = configuration -o = output
 
-      - name: Change base-tag in index.html from / to Blazor.Web ✍ 
-        run: sed -i 's/<base href="\/" \/>/<base href="\/blazor\/" \/>/g' /home/runner/work/blazor/blazor/Blazor.Web/bin/release/net7.0/publish/wwwroot/index.html
+      # - name: Change base-tag in index.html from / to Blazor.Web ✍ 
+      #   run: sed -i 's/<base href="\/" \/>/<base href="\/blazor\/" \/>/g' release/wwwroot/index.html
          
-      - name: Add .nojekyll fil 🚫👨‍⚕️👾 # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)e
-        run: touch /home/runner/work/blazor/blazor/Blazor.Web/bin/release/net7.0/publish/wwwroot/.nojekyll
+      # - name: Add .nojekyll fil 🚫👨‍⚕️👾 # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)e
+      #   run: touch release/wwwroot/.nojekyll
 
       - name: Setup Pages 📃 # Setup a github page
         uses: actions/configure-pages@v2
@@ -58,8 +58,8 @@ jobs:
       - name: Upload artifact 🔺 # Upload the dist folder to the page
         uses: actions/upload-pages-artifact@v1
         with:
-          path: "/home/runner/work/blazor/blazor/Blazor.Web/bin/release/net7.0/publish/wwwroot" # Upload just the static site folder
+          path: "release" # Upload just the static site folder
 
       - name: Deploy to GitHub Pages 🌍
         id: deployment
-        uses: actions/deploy-pages@v1.2.3
+        uses: actions/deploy-pages@v1
