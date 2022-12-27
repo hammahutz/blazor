@@ -47,7 +47,7 @@ jobs:
         run: dotnet publish Blazor.Web -c release -nologo
 
       - name: Change base-tag in index.html from / to Blazor.Web ✍ 
-        run: sed -i 's/<base href="\/" \/>/<base href="\/Blazor.Web\/" \/>/g' /home/runner/work/blazor/blazor/Blazor.Web/bin/release/net7.0/publish/wwwroot/index.html
+        run: sed -i 's/<base href="\/" \/>/<base href="\/blazor\/" \/>/g' /home/runner/work/blazor/blazor/Blazor.Web/bin/release/net7.0/publish/wwwroot/index.html
          
       - name: Add .nojekyll fil 🚫👨‍⚕️👾 # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)e
         run: touch /home/runner/work/blazor/blazor/Blazor.Web/bin/release/net7.0/publish/wwwroot/.nojekyll
@@ -55,19 +55,10 @@ jobs:
       - name: Setup Pages 📃 # Setup a github page
         uses: actions/configure-pages@v2
 
-      # - name: Upload artifact 🔺 # Upload the dist folder to the page
-      #   uses: actions/upload-pages-artifact@v1
-      #   with:
-      #     path: "/home/runner/work/blazor/blazor/Blazor.Web/bin/release/net7.0/publish/wwwroot" # Upload just the static site folder
-
-      - name: Upload a Build Artifact 🔺 # Upload the dist folder to the page
-        uses: actions/upload-artifact@v3.1.1
+      - name: Upload artifact 🔺 # Upload the dist folder to the page
+        uses: actions/upload-pages-artifact@v1
         with:
-          # Artifact name
-          name: github-pages # optional, default is artifact
-          # A file, directory or wildcard pattern that describes what to upload
-          path: /home/runner/work/blazor/blazor/Blazor.Web/bin/release/net7.0/publish/wwwroot
-          # The desired behavior if no files are found using the provided path.
+          path: "/home/runner/work/blazor/blazor/Blazor.Web/bin/release/net7.0/publish/wwwroot" # Upload just the static site folder
 
       - name: Deploy to GitHub Pages 🌍
         id: deployment
