@@ -28,6 +28,9 @@ jobs:
       - name: Build 🔧
         run: dotnet publish Blazor.Web -c release -nologo
 
+      - name: Setup Pages 📃 # Setup a github page
+        uses: actions/configure-pages@v2
+
       - name: Upload artifact 🔺 # Upload the dist folder to the page
         uses: actions/upload-pages-artifact@v1
         with:
