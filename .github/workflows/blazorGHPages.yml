@@ -52,7 +52,7 @@ jobs:
       - name: Upload artifact 🔺 # Upload the dist folder to the page
         uses: actions/upload-pages-artifact@v1
         with:
-          path: "/home/runner/work/blazor/blazor/Blazor.Web/bin/release/net7.0/wwwroot" # Upload just the static site folder
+          path: "/home/runner/work/blazor/blazor/Blazor.Web/bin/release/net7.0/publish/wwwroot" # Upload just the static site folder
 
       - name: Deploy to GitHub Pages 🌍
         id: deployment
