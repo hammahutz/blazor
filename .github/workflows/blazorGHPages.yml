@@ -31,6 +31,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      Solution_Name: Blazor.Web #TODO Change variable to the solution name to publish
+
     steps:
       - name: Checkout 🛎️ # Creates a new branch that github can run code on
         uses: actions/checkout@v3
@@ -41,12 +44,12 @@ jobs:
           dotnet-version: 7.x.x # Sets the dotnet version
 
       - name: Restore dependencies 🏥 # Restores and installs all dependencies
-        run: dotnet restore Blazor.Web
+        run: dotnet restore $env:Solution_Name
 
       - name: Build 🔧 # Build the dotnet blazor app and put it in the Release folder, -nologo remove dotnet log
-        run: dotnet publish Blazor.Web -c release -o release -nologo #-c = configuration -o = output
+        run: dotnet publish $env:Solution_Name -c release -o release -nologo #-c = configuration -o = output
 
-      - name: Change base-tag in index.html from / to Blazor.Web ✍
+      - name: Change base-tag in index.html from / to $env:Solution_Name ✍
         run: sed -i 's/<base href="\/" \/>/<base href="\/blazor\/" \/>/g' release/wwwroot/index.html
 
       - name: Add .nojekyll fil 🚫👨‍⚕️👾 # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)e
