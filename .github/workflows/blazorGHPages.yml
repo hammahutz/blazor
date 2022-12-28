@@ -47,7 +47,7 @@ jobs:
         run: dotnet restore $env:Solution_Name
 
       - name: Build 🔧 # Build the dotnet blazor app and put it in the Release folder, -nologo remove dotnet log
-        run: dotnet publish $env:Solution_Name -c release -o release -nologo #-c = configuration -o = output
+        run: dotnet publish $Solution_Name -c release -o release -nologo #-c = configuration -o = output
 
       - name: Change base-tag in index.html from / to $env:Solution_Name ✍
         run: sed -i 's/<base href="\/" \/>/<base href="\/blazor\/" \/>/g' release/wwwroot/index.html
