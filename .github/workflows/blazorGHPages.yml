@@ -57,7 +57,7 @@ jobs:
       - name: Add .nojekyll fil 🚫👨‍⚕️👾 # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)e
         run: touch release/wwwroot/.nojekyll
 
-      - name: Setup Pages 📃 # Setup a github page
+      - name: Setup Pages 📃 # Setup a github page 
         uses: actions/configure-pages@v2
 
       - name: Upload artifact 🔺 # Upload the dist folder to the page
